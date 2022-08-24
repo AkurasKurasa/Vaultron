@@ -3,7 +3,13 @@ import random
 import csv
 from storage import Storage
 
+USER = 'User'
+PASSWORD = 'password'
 DB = 'db.csv'
+RANDOMIZED_QUESTIONS = (("Random Question #1", 1),
+                     ("Random Question #2", 2),
+                     ("Random Question #3", 3))
+
 
 class PaC:
     def __init__(self, root):
@@ -29,20 +35,16 @@ class PaC:
 
         frame.pack(padx=15, pady=10)
 
-        questions = (("Random Question #1", 1),
-                     ("Random Question #2", 2),
-                     ("Random Question #3", 3))
-
-        rand = random.randint(0, len(questions) - 1)
-        self.randomized_label['text'] = questions[rand][0]
-        self.random_pass = questions[rand][1]
+        rand = random.randint(0, len(RANDOMIZED_QUESTIONS) - 1)
+        self.randomized_label['text'] = RANDOMIZED_QUESTIONS[rand][0]
+        self.random_pass = RANDOMIZED_QUESTIONS[rand][1]
 
     def main(self, root):
 
         root.configure(bg='black')
         root.title("Main Hub")
 
-        greetings = Label(root, text='Hello, User!', bg='black', font=('Futura', 13, 'bold'),
+        greetings = Label(root, text=f'Hello, {USER}!', bg='black', font=('Futura', 13, 'bold'),
                                fg='#20C20E')
         ask = Label(root, text='What would you like to do?', bg='black', font=('Futura', 13, 'bold'),
                          fg='#20C20E')
@@ -283,7 +285,7 @@ class PaC:
             self.change_input.delete(0, END)
 
     def _access(self):
-        if str(self.password_entry.get()) == 'password' and str(self.randomized_password.get()) == \
+        if str(self.password_entry.get()) == f'{PASSWORD}' and str(self.randomized_password.get()) == \
                 str(self.random_pass):
             root.destroy()
             next = Tk()
